@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- head -->
+  <%- include("layout/header") -%>
+
+  <body id="page-top">
+    <!-- Navigation-->
+    <%- include("layout/navbar") -%>
+
+    <!-- Contact-->
+    <section class="page-section" id="contact">
+      <div class="container">
+        <% if (driveTest != null && driveTest!=[]&& driveTest!=""){%>
+        <form id="contactForm" action="/update" method="POST">
+          <div class="row align-items-stretch mb-7">
+            <div class="col-md-12"><% } %></div>
+          </div>
+
+          <% if (driveTest != null && driveTest!=[]&& driveTest!=""){%>
+          <div class="form-group">
+            <div class="form-group">
+              <input
+                class="form-control"
+                id="name"
+                type="text"
+                placeholder="First Name"
+                value="<%= driveTest?.firstname %>"
+                name="first_name"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                class="form-control"
+                id="lastname"
+                type="lastname"
+                placeholder="Your lastname *"
+                value="<%= driveTest?.lastname %>"
+                name="last_name"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                class="form-control"
+                id="licenceno"
+                type="licenceno"
+                placeholder="Your licence number *"
+                value="<%= driveTest?.licenceno %>"
+                name="licenceno"
+              />
+            </div>
+
+            <div class="form-group">
+              <input
+                class="form-control"
+                id="age"
+                type="number"
+                placeholder="Your age *"
+                value="<%= driveTest?.age %>"
+                name="age"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                class="form-control"
+                id="make"
+                type="text"
+                placeholder="Car make"
+                value="<%= driveTest?.car_details?.make %>"
+                name="make"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                class="form-control"
+                id="model"
+                type="model"
+                placeholder="Car model *"
+                data-sb-validations="required,model"
+                value="<%= driveTest?.car_details?.model %>"
+                name="model"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                class="form-control"
+                id="plat number"
+                type="plat number"
+                placeholder="Car plat number *"
+                data-sb-validations="required,plat number"
+                value="<%= driveTest?.car_details?.platno %>"
+                name="platno"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                class="form-control"
+                id="year"
+                type="number"
+                placeholder="year *"
+                value="<%= driveTest?.car_details?.year %>"
+                name="year"
+              />
+            </div>
+          </div>
+
+          <% } %>
+        </form>
+      </div>
+    </section>
+    <!-- Footer-->
+    <%- include("layout/footer") -%>
+
+    <!-- Bootstrap core JS-->
+    <%- include("layout/script") -%>
+  </body>
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- head -->
+  <%- include("layout/header") -%>
+
+  <body id="page-top">
+    <!-- Navigation-->
+    <%- include("layout/navbar") -%>
+
+    <!-- Contact-->
+    <section class="page-section" id="contact">
+      <div class="container">
+        <% if(isError) {%>
+        <div class="col-md-12">
+          <h6 style="color: red"><%= errorMessage %></h6>
+        </div>
+        <% } %>
+        <div class="text-center">
+          <h2 class="section-heading text-uppercase">Personal Information</h2>
+          <br />
+        </div>
+        <% if(driveTest && driveTest?.appointmentID==null){ %>
+          <form
+          method="POST"
+          action="/save-driverdata"
+          id="contactForm"
+          data-sb-form-api-token="API_TOKEN"
+        >
+          <% } else { %>
+            <form
+            method="POST"
+            action="/update"
+            id="contactForm"
+            data-sb-form-api-token="API_TOKEN"
+          >
+          <% } %>
+       
+          <div class="row align-items-stretch mb-2">
+            <div class="col-md-6">
+              <div class="form-group">
+                <!-- Name input-->
+                <input
+                  class="form-control"
+                  name="firstname"
+                  id="firstname"
+                  type="text"
+                  placeholder="Your First Name *"
+                  data-sb-validations="required"
+                   value="<%- driveTest ?
+                  driveTest.firstname : "" %>"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <!-- Name input-->
+                <input
+                  class="form-control"
+                  name="lastname"
+                  id="lastname"
+                  type="text"
+                  placeholder="Your Last Name *"
+                  data-sb-validations="required"
+                   value="<%- driveTest ?
+                  driveTest.lastname : "" %>"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-stretch mb-2">
+            <div class="col-md-12">
+              <div class="form-group">
+                <!-- Name input-->
+                <input
+                  class="form-control"
+                  id="licenceno"
+                  name="licenceno"
+                  type="text"
+                  placeholder="Your Licence Number *"
+                  value="<%- driveTest ?
+                  driveTest.licenceno : "" %>"
+                />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <!-- Name input-->
+                <input
+                  class="form-control"
+                  id="sin"
+                  type="text"
+                  name="sin"
+                  placeholder="Your sin Number *"
+                  value="<%- driveTest ?
+                  driveTest.sin : "" %>"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-stretch mb-5">
+            <div class="col-md-6">
+              <div class="form-group">
+                <!-- Name input-->
+                <input
+                  class="form-control"
+                  name="age"
+                  id="age"
+                  type="number"
+                  placeholder="Your Age *"
+                  data-sb-validations="required"
+                   value="<%- driveTest ?
+                  driveTest.age : "" %>"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <h2 class="section-heading text-uppercase">Car Information</h2>
+            <br />
+          </div>
+
+          <div class="row align-items-stretch mb-2">
+            <div class="col-md-6">
+              <div class="form-group">
+                <!-- Name input-->
+                <input
+                  class="form-control"
+                  id="make"
+                  name="make"
+                  type="text"
+                  placeholder="ie make *"
+                  value="<%- driveTest ?
+                  driveTest.car_details.make : "" %>"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <!-- Name input-->
+                <input
+                  class="form-control"
+                  id="model"
+                  name="model"
+                  type="text"
+                  placeholder="Model Name *"
+                  value="<%- driveTest ?
+                  driveTest.car_details.model : "" %>"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-stretch mb-5">
+            <div class="col-md-6">
+              <div class="form-group">
+                <!-- Name input-->
+                <input
+                  class="form-control"
+                  id="year"
+                  name="year"
+                  type="number"
+                  placeholder="Year *"
+                  value="<%- driveTest ?
+                  driveTest.car_details.year : "" %>"
+                />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <!-- Name input-->
+                <input
+                  class="form-control"
+                  id="platno"
+                  name="platno"
+                  type="text"
+                  placeholder="Plate Number *"
+                  value="<%- driveTest ?
+                  driveTest.car_details.platno : "" %>"
+                />
+              </div>
+            </div>
+          </div>
+          <% if((driveTest && driveTest?.appointmentID==null) || (driveTest &&
+          driveTest?.appointmentType=="G2" )){ %>
+          <div class="row align-items-stretch mb-5">
+            <div class="col-md-12">
+              <div class="text-center">
+                <h2 class="section-heading text-uppercase">Book Appointment</h2>
+              </div>
+              <div class="row">
+                <% if((driveTest && driveTest?.appointmentID==null)){ %>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <!-- date input-->
+                    <input
+                      class="form-control"
+                      name="date"
+                      id="date"
+                      type="date"
+                      placeholder="date"
+                      data-sb-validations="required"
+                       value="<%- driveTest ?
+                  driveTest.lnumber : "" %>"
+                      onchange="getDate(this)"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <!-- slot input-->
+                    <div class="btn-group appointment">
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="option1"
+                        id="option1"
+                        autocomplete="off"
+                        value="09:00"
+                      />
+                      <label class="btn btn-outline-primary" for="option1"
+                        >9:00 - 9:30</label
+                      >
+
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="option1"
+                        id="option2"
+                        autocomplete="off"
+                        value="09:30"
+                      />
+                      <label class="btn btn-outline-primary" for="option2"
+                        >9:30 - 10:00</label
+                      >
+
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="option1"
+                        id="option3"
+                        autocomplete="off"
+                        value="10:00"
+                      />
+                      <label class="btn btn-outline-primary" for="option3"
+                        >10:00 - 10:30</label
+                      >
+
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="option1"
+                        id="option4"
+                        autocomplete="off"
+                        value="10:30"
+                      />
+                      <label class="btn btn-outline-primary" for="option4"
+                        >10:30 - 11:00</label
+                      >
+
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="option1"
+                        id="option5"
+                        autocomplete="off"
+                        value="11:00"
+                      />
+                      <label class="btn btn-outline-primary" for="option5"
+                        >11:00 - 11:30</label
+                      >
+
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="option1"
+                        id="option6"
+                        autocomplete="off"
+                        value="11:30"
+                      />
+                      <label class="btn btn-outline-primary" for="option6"
+                        >11:30 - 12:00</label
+                      >
+
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="option1"
+                        id="option7"
+                        autocomplete="off"
+                        value="12:00"
+                      />
+                      <label class="btn btn-outline-primary" for="option7"
+                        >12:00 - 12:30</label
+                      >
+
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="option1"
+                        id="option8"
+                        autocomplete="off"
+                        value="12:30"
+                      />
+                      <label class="btn btn-outline-primary" for="option8"
+                        >12:30 - 13:00</label
+                      >
+
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="option1"
+                        id="option9"
+                        autocomplete="off"
+                        value="13:00"
+                      />
+                      <label class="btn btn-outline-primary" for="option9"
+                        >13:00 - 13:30</label
+                      >
+
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="option1"
+                        id="option10"
+                        autocomplete="off"
+                        value="13:30"
+                      />
+                      <label class="btn btn-outline-primary" for="option10"
+                        >13:30 - 14:00</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <% } %> <% if((driveTest && driveTest?.appointmentType=="G2"
+                  && driveTest?.testResult == null )){ %>
+                  <div class="card">
+                    <div class="card-body" style="text-align: center">
+                      <h3>Appointment Details</h3>
+                      <div style="display: flex">
+                        <div class="col-sm-2" style="font-weight: 600">
+                          <p>Date :</p>
+                        </div>
+                        <div class="col-sm-6">
+                          <p><%= driveTest.appointmentID.date %></p>
+                        </div>
+                      </div>
+                      <div style="display: flex">
+                        <div class="col-sm-2" style="font-weight: 600">
+                          <p>Time :</p>
+                        </div>
+                        <div class="col-sm-6">
+                          <p><%= driveTest.appointmentID.time %></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <% } %> <% if((driveTest && driveTest?.testResult != null)){
+                  %>
+                  <div class="card">
+                    <div class="card-body" style="text-align: center">
+                      <h3>Result</h3>
+                      <% if(driveTest.testResult == "PASS") {%>
+                      <div style="display: flex; color: green">
+                        <div class="col-sm-2" style="font-weight: 600">
+                          <p>Result :</p>
+                        </div>
+                        <div class="col-sm-6">
+                          <p><%= driveTest.testResult %></p>
+                        </div>
+                      </div>
+                      <% } else {%>
+                      <div style="display: flex; color: red">
+                        <div class="col-sm-2" style="font-weight: 600">
+                          <p>Result :</p>
+                        </div>
+                        <div class="col-sm-6">
+                          <p><%= driveTest.testResult %></p>
+                        </div>
+                      </div>
+                      <% } %>
+                      <div style="display: flex">
+                        <div class="col-sm-2" style="font-weight: 600">
+                          <p>Comment :</p>
+                        </div>
+                        <div class="col-sm-6">
+                          <p><%= driveTest.comment %></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+
+          <div class="text-center">
+            <button class="btn btn-primary btn-xl text-uppercase" type="submit">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+    <!-- Footer-->
+    <%- include("layout/footer") -%>
+
+    <!-- Bootstrap core JS-->
+    <%- include("layout/script") -%>
+    <script>
+      const form = document.getElementById("contactForm");
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        var addInput = document.createElement("input");
+        addInput.setAttribute("type", "text");
+        addInput.setAttribute("name", "appointmentType");
+        addInput.setAttribute("value", "G2");
+        addInput.style.display = "none";
+
+        form.appendChild(addInput);
+        form.submit();
+
+        addInput.remove();
+      });
+
+      const option1 = document.getElementsByName("option1");
+
+      const handleResponseError = (response) => {
+        if (!response.ok) {
+          throw response.status + ": " + response.statusText;
+        }
+        return response.json();
+      };
+
+      const fail = (error) => {
+        console.log("Unable to make a request to API " + error);
+      };
+
+      const succeed = (data) => {
+        option1.forEach((rb) => {
+          data.appointment.forEach((apt) => {
+            if (rb.value == apt.time) rb.removeAttribute("disabled");
+            if (!apt.isTimeSlotAvailable) {
+              rb.setAttribute("disabled", true);
+            }
+          });
+        });
+      };
+
+      const getDate = (val) => {
+        let a = document.getElementById("date").value;
+        option1.forEach((rb) => {
+          rb.setAttribute("disabled", true);
+        });
+        const selectedDate = a
+          .toLocaleString("en", { timeZone: "America/Toronto" })
+          .split(",")[0];
+        const url = window.location.origin + `/get-appointment/${selectedDate}`;
+        fetch(url)
+          .then((response) => handleResponseError(response))
+          .then((data) => succeed(data))
+          .catch((error) => fail(error));
+      };
+    </script>
+  </body>
+</html>
