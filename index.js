@@ -45,7 +45,7 @@ app.use("*", (req, res, next) => {
 });
 app.use(
   expressSession({
-    secret: "Korat985Maniy",
+    secret: "Korat985Maniya550",
   })
 );
 app.use(express.urlencoded({ extended: true }));
